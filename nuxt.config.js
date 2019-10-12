@@ -5,7 +5,7 @@ export default {
   ** Headers of the page
   */
   head: {
-    title: "风之旅游网站",
+    title: "风之旅",
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },

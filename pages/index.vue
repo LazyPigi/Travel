@@ -69,16 +69,18 @@ export default {
         }
     },
 
-    mounted(){
+    async mounted(){
         // 请求轮播图数据
-        this.$axios({
+        // 返回一个pomise, res就是axios的resolve的参数（也就是.then的回调函数的参数
+        const res = await this.$axios({
             url: "scenics/banners"
-        }).then(res => {
+        });
+        
             const {data} = res.data;
 
             // 赋值给banners
             this.banners = data;
-        })
+
     },
 
     methods: {
