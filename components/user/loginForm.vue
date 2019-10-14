@@ -70,7 +70,7 @@ export default {
 
                     if(res.status === 200){
                         this.$message.success("登录成功");
-                        // this.$router.push("/")
+                        this.$router.push("/")
 
                         const data = res.data;
                         // 把用户信息token保存到本地，在头部组件中显示用户数据
