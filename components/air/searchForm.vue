@@ -19,7 +19,7 @@
                 <!-- fetch-suggestions: 类似于input方法，每次输入框值发生变化时候会触发 -->
                 <!-- select，选中下拉列表中的值时候触发的 -->
                 <el-autocomplete
-                :fetch-sugggetions="queryDepartSearch"
+                :fetch-suggestions="queryDepartSearch"
                 placeholder="请搜索出发城市"
                 @select="handleDepartSelect"
                 class="el-autocomplete"
@@ -94,8 +94,26 @@ export default {
         // 数组中的元素必须是一个对象，对象中心必须要有value属性
         queryDepartSearch(value, cb){
 
+            // 输入框为空时候不请求
+            if(!value) return;
+
             // 请求搜索建议城市
-            cb(arr)
+            this.$axios({
+                url: "/airs/city?name=" + value
+            }).then(res => {
+
+                // data是后台返回的城市数组，没有value属性
+                const {data} = res.data;
+                // 循环给每一项添加value属性
+                const newData = data.map(v => {
+                    v.value = v.name.replace("市", "");
+                    return v;
+                })
+console.log(newData);
+
+                // 展示到下拉列表
+                cb(newData)
+            })
         },
 
         // 目标城市输入框获取焦点时触发
