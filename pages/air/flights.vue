@@ -13,7 +13,7 @@
                 <FlightsListHead/>
                 
                 <!-- 航班信息 -->
-                <!-- FlightsItem -->
+                <FlightsItem/>
             </div>
 
             <!-- 侧边栏 -->
@@ -39,6 +39,10 @@ export default {
     components: {
         FlightsListHead,
         FlightsItem
+    },
+
+    mounted(){
+        // 请求机票列表数据
     }
 }
 </script>
