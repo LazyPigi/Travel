@@ -54,7 +54,8 @@ export default {
             flightsData: {
                 // 初始值
                 flights: [],
-                info: {}
+                info: {},
+                options: {}
             },
 
             // // 从flights总列表数据中切割出来数组列表
