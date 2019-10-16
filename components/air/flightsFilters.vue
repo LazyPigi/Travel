@@ -71,8 +71,10 @@
                 placeholder="机型" 
                 @change="handleAirSize">
                     <el-option
-                    label="大"
-                    value="大">
+                    v-for="(item, index) in sizeOptions"
+                    :key="index"
+                    :label="item.name"
+                    :value="item.size">
                     </el-option>
                 </el-select>
             </el-col>
@@ -99,6 +101,13 @@ export default {
             flightTimes: "",    // 出发时间
             company: "",        // 航空公司
             airSize: "",        // 机型大小
+
+            // 机型的列表
+            sizeOptions: [
+                { name: "大", size: "L" },
+                { name: "中", size: "M" },
+                { name: "小", size: "S" },
+            ]
         }
     },
 
@@ -108,6 +117,7 @@ export default {
             type: Object,
             default: {}
         }
+        
     },
 
     methods: {
@@ -136,7 +146,7 @@ export default {
         handleFiltersCancel(){
             
         },
-    }
+    },
 }
 </script>
 
