@@ -173,7 +173,14 @@ export default {
                 air: this.$route.query.id,
             }
 
-            console.log(data)
+            // 提交订单接口
+            this.$axios({
+                url: "/airorders",
+                methods: "POST",
+                data
+            }).then(res => {
+                console.log(res);
+            })
         }
     },
 
