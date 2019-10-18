@@ -86,6 +86,9 @@
                 <el-button type="warning" class="submit" @click="handleSubmit">提交订单</el-button>
             </div>
         </div>
+
+        <!-- 调用总价格，让computed执行 -->
+        <span v-show="false">{{allPrice}}</span>
     </div>
 </template>
 
@@ -108,6 +111,32 @@ export default {
             contactPhone: "",   /* 联系电话 */
             captcha: "",    /* 验证码 */
             invoice: false,     /* 发票 */
+        }
+    },
+
+    computed: {
+        // 计算总价格
+        allPrice(){
+            
+            // 如果接口还没请求回来，直接返回
+            if(!this.detail.seat_infos) return;
+
+            // 总价格初始值
+            let price = 0;
+            // 加上单价
+            price += this.detail.seat_infos.org_settle_price,
+            // 燃油费
+            price += this.detail.airport_tax_audlet;
+            // 保险
+            price += this.insurances.length * 30 
+            // 人数
+            price *= this.users.length;
+
+            // 把总价格穿度父组件
+            this.$emit("getAllPrice", price);
+
+            return price;
+            
         }
     },
 
@@ -176,14 +205,24 @@ export default {
             // 提交订单接口
             this.$axios({
                 url: "/airorders",
-                methods: "POST",
+                method: "POST",
                 data,
                 headers: {
                     // 这是jwt标准的token
                     Authorization: `Bearer ${this.$store.state.user.userInfo.token}`
                 }
             }).then(res => {
-                console.log(res);
+                const {data,message} = res.data;
+
+                this.$message.success(message)
+
+                // 跳转到付款页 /air/pay?id=505
+                this.$router.push({
+                    path: '/air/pay',
+                    query: {
+                        id: data.id
+                    }
+                })
             })
         }
     },
