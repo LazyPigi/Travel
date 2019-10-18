@@ -1,4 +1,3 @@
-@@ -0,0 +1,614 @@
 /**
  * @fileoverview
  * - Using the 'QRCode for Javascript library'
