@@ -117,6 +117,8 @@ export default {
     computed: {
         // 计算总价格
         allPrice(){
+
+            console.log(123);
             
             // 如果接口还没请求回来，直接返回
             if(!this.detail.seat_infos) return;
